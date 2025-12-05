@@ -2,31 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>CYBERPUNK GATEWAY // INDEX</title>
+  <title>WELCOME // CYBER ENTRY</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Neon, techno fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Roboto+Condensed:wght@300;400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Roboto+Condensed:wght@300;400;700&display=swap"
     rel="stylesheet"
   />
 
   <style>
     :root {
       --cp-yellow: #fcee09;
-      --cp-yellow-soft: #f5e642;
+      --cp-yellow-deep: #f2c700;
+      --cp-yellow-soft: #fff7a8;
+      --cp-dark: #101016;
+      --cp-dark-soft: #171721;
       --cp-cyan: #00fff0;
-      --cp-pink: #ff00a8;
-      --cp-bg: #05030a;
-      --cp-bg-alt: #0b0815;
-      --cp-border: #2c2b40;
-      --cp-text: #f5f5f5;
-      --cp-muted: #a0a0b8;
-      --cp-danger: #ff3b6b;
-      --cp-success: #63ff87;
-      --cp-shadow: 0 0 20px rgba(252, 238, 9, 0.35);
+      --cp-pink: #ff00b3;
+      --cp-danger: #ff305f;
+      --cp-muted: #2b2b34;
     }
 
     * {
@@ -39,1070 +36,493 @@
       min-height: 100vh;
       font-family: "Roboto Condensed", system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
+      /* 主体黄底 + 轻微渐变，整体很亮 */
       background:
-        radial-gradient(circle at top left, #20103a 0, transparent 40%),
-        radial-gradient(circle at bottom right, #062b3c 0, transparent 45%),
-        linear-gradient(135deg, #05030a 0, #030106 50%, #05030a 100%);
-      color: var(--cp-text);
+        radial-gradient(circle at center, #fffbe0 0, #fcee09 35%, #f2c700 70%, #e0b300 100%);
+      color: #050505;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
-    /* Scanline & noise overlay */
+    /* 细微扫描线 + 噪点，增加赛博/崩坏感 */
     body::before,
     body::after {
       content: "";
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: -1;
+      mix-blend-mode: multiply;
+      z-index: 1;
     }
 
     body::before {
       background-image: linear-gradient(
-        rgba(255, 255, 255, 0.02) 1px,
+        rgba(0, 0, 0, 0.08) 1px,
         transparent 1px
       );
       background-size: 100% 2px;
-      mix-blend-mode: soft-light;
-      opacity: 0.7;
+      opacity: 0.4;
     }
 
     body::after {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
-      mix-blend-mode: soft-light;
-      opacity: 0.5;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
+      opacity: 0.7;
     }
 
     .frame {
+      position: relative;
+      z-index: 2;
       width: 100%;
-      max-width: 1200px;
-      background: linear-gradient(135deg, #05030a 0%, #0b0815 50%, #05030a 100%);
-      border-radius: 1.25rem;
-      border: 1px solid rgba(252, 238, 9, 0.4);
+      max-width: 960px;
+      aspect-ratio: 16 / 9;
+      border-radius: 1.4rem;
+      background: linear-gradient(135deg, #1c1b25, #0e0e14);
       box-shadow:
-        var(--cp-shadow),
-        0 0 40px rgba(0, 0, 0, 0.9);
-      padding: 1.8rem 2rem 1.8rem 2rem;
-      position: relative;
+        0 0 0 3px rgba(0, 0, 0, 0.8),
+        0 25px 80px rgba(0, 0, 0, 0.7);
       overflow: hidden;
-    }
-
-    .frame::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      background: conic-gradient(
-        from 180deg at 50% 50%,
-        rgba(252, 238, 9, 0.45),
-        rgba(0, 255, 240, 0.02),
-        rgba(255, 0, 168, 0.35),
-        rgba(0, 255, 240, 0.1),
-        rgba(252, 238, 9, 0.45)
-      );
-      mix-blend-mode: color-dodge;
-      opacity: 0.5;
-      filter: blur(14px);
-      z-index: -1;
-    }
-
-    .frame-grid {
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      gap: 1.4rem;
-      min-height: min(70vh, 720px);
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      border-bottom: 1px solid var(--cp-border);
-      padding-bottom: 0.6rem;
-      position: relative;
-    }
-
-    header::after {
-      content: "";
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 50%;
-      height: 2px;
-      background: linear-gradient(
-        to right,
-        var(--cp-yellow),
-        var(--cp-yellow),
-        transparent
-      );
-      box-shadow: var(--cp-shadow);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-    }
-
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 0.6rem;
-      border: 2px solid var(--cp-yellow);
+      padding: 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: "Orbitron", system-ui;
-      font-size: 0.9rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--cp-yellow);
-      box-shadow:
-        0 0 10px rgba(252, 238, 9, 0.8),
-        0 0 30px rgba(252, 238, 9, 0.25);
-      position: relative;
-      overflow: hidden;
+      isolation: isolate;
     }
 
-    .brand-mark::before {
+    /* 外圈“崩坏”裂缝风格边框光效 */
+    .frame::before {
       content: "";
       position: absolute;
-      inset: -60%;
-      background: linear-gradient(
-        120deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.35) 40%,
-        transparent 75%
-      );
-      transform: translateX(-120%) rotate(12deg);
-      animation: shine 4.2s linear infinite;
+      inset: -25%;
+      background:
+        conic-gradient(
+          from 0deg,
+          rgba(252, 238, 9, 0.9),
+          rgba(255, 0, 179, 0.8),
+          rgba(0, 255, 240, 0.9),
+          rgba(252, 238, 9, 1),
+          rgba(255, 0, 179, 0.8),
+          rgba(0, 0, 0, 1)
+        );
+      mix-blend-mode: screen;
+      filter: blur(30px);
+      opacity: 0.24;
+      z-index: -1;
+      animation: halo-spin 10s linear infinite;
     }
 
-    .brand-title {
-      font-family: "Orbitron", system-ui;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      font-size: 0.96rem;
-      text-transform: uppercase;
+    .frame-inner {
       position: relative;
-    }
-
-    .brand-title span {
-      color: var(--cp-yellow);
-    }
-
-    .brand-subtitle {
-      font-size: 0.64rem;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      color: var(--cp-muted);
-      margin-top: 0.2rem;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-    }
-
-    .nav-link {
-      position: relative;
-      padding: 0.35rem 0.6rem;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition: 0.16s ease-out;
-      color: var(--cp-muted);
-      text-decoration: none;
-    }
-
-    .nav-link::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      opacity: 0;
-      transition: 0.2s ease-out;
-    }
-
-    .nav-link.active {
-      border-color: var(--cp-yellow);
-      color: var(--cp-yellow-soft);
-      box-shadow: 0 0 18px rgba(252, 238, 9, 0.45);
-    }
-
-    .nav-link:hover {
-      color: var(--cp-yellow-soft);
-    }
-
-    .nav-link:hover::before {
-      opacity: 1;
-    }
-
-    .user-indicator {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.7rem;
-      color: var(--cp-muted);
-      border-left: 1px solid var(--cp-border);
-      padding-left: 0.75rem;
-    }
-
-    .user-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: radial-gradient(circle, var(--cp-success), #0d3f2b);
-      box-shadow: 0 0 8px rgba(99, 255, 135, 0.9);
-    }
-
-    .user-label {
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      font-size: 0.65rem;
-    }
-
-    .user-name {
-      color: var(--cp-yellow-soft);
-      letter-spacing: 0.08em;
-      font-size: 0.7rem;
-    }
-
-    .main-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 1.5rem;
-      align-items: stretch;
-    }
-
-    /* Left: hero portal info */
-    .hero-panel {
-      position: relative;
-      padding: 1.4rem 1.2rem;
+      width: 100%;
+      height: 100%;
       border-radius: 1rem;
-      background: radial-gradient(circle at top, #18112a 0, #05030a 52%);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       overflow: hidden;
-    }
-
-    .hero-header-row {
+      background:
+        linear-gradient(130deg, #171722 0, #050509 45%, #16151f 100%);
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.4rem;
+      justify-content: center;
     }
 
-    .hero-tag {
+    /* 崩坏碎片装饰 */
+    .shard {
+      position: absolute;
+      border: 1px solid rgba(252, 238, 9, 0.6);
+      background: linear-gradient(120deg, rgba(252, 238, 9, 0.12), transparent);
+      box-shadow: 0 0 12px rgba(252, 238, 9, 0.4);
+      opacity: 0.5;
+      transform: skewX(-18deg) rotate(-4deg);
+      pointer-events: none;
+    }
+
+    .shard.s1 {
+      width: 45%;
+      height: 2px;
+      top: 14%;
+      left: -5%;
+      animation: shard-flicker 3.2s infinite;
+    }
+
+    .shard.s2 {
+      width: 35%;
+      height: 2px;
+      bottom: 12%;
+      right: -3%;
+      animation: shard-flicker 2.7s infinite reverse;
+    }
+
+    .shard.s3 {
+      width: 14%;
+      height: 32%;
+      left: 4%;
+      bottom: -6%;
+      border-radius: 0.5rem;
+      border-color: rgba(0, 255, 240, 0.6);
+      box-shadow: 0 0 16px rgba(0, 255, 240, 0.6);
+      animation: shard-glide 9s linear infinite;
+    }
+
+    .shard.s4 {
+      width: 10%;
+      height: 26%;
+      right: -4%;
+      top: 10%;
+      border-radius: 0.3rem;
+      border-color: rgba(255, 0, 179, 0.6);
+      box-shadow: 0 0 18px rgba(255, 0, 179, 0.7);
+      animation: shard-glide 11s linear infinite reverse;
+    }
+
+    .content {
+      position: relative;
+      text-align: center;
+      padding: 1rem;
+      max-width: 640px;
+      color: #f4f4f9;
+    }
+
+    /* 顶部小条：系统提示文字 */
+    .top-label {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      padding: 0.15rem 0.7rem 0.2rem;
+      gap: 0.5rem;
+      padding: 0.25rem 0.8rem;
       border-radius: 999px;
-      border: 1px solid rgba(252, 238, 9, 0.65);
+      border: 1px solid rgba(252, 238, 9, 0.8);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.6rem;
       color: var(--cp-yellow-soft);
+      margin-bottom: 1.2rem;
       background: rgba(252, 238, 9, 0.06);
-      box-shadow: 0 0 12px rgba(252, 238, 9, 0.4);
+      box-shadow: 0 0 15px rgba(252, 238, 9, 0.5);
     }
 
-    .hero-tag-dot {
-      width: 6px;
-      height: 6px;
+    .top-label-dot {
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
-      background: var(--cp-yellow);
+      background: radial-gradient(circle, var(--cp-cyan), #00383a);
+      box-shadow: 0 0 10px rgba(0, 255, 240, 0.8);
     }
 
-    .hero-id {
-      font-family: "Orbitron", system-ui;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--cp-muted);
-    }
-
-    .hero-id span {
-      color: var(--cp-cyan);
-    }
-
-    .glitch-title {
-      font-family: "Orbitron", system-ui;
-      font-weight: 800;
-      text-transform: uppercase;
-      font-size: clamp(1.8rem, 2.3vw + 0.4rem, 2.4rem);
-      letter-spacing: 0.15em;
+    /* 中心大字：WELCOME 崩坏/故障风 */
+    .welcome-wrap {
       position: relative;
       display: inline-block;
-      line-height: 1.1;
-      margin-bottom: 0.6rem;
-      color: var(--cp-yellow-soft);
+      padding: 0.4rem 1.6rem 0.6rem;
+      margin-bottom: 1.2rem;
     }
 
-    .glitch-title::before,
-    .glitch-title::after {
+    .welcome-core {
+      position: relative;
+      font-family: "Orbitron", system-ui;
+      font-weight: 900;
+      font-size: clamp(2.8rem, 6vw, 4.4rem);
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: #ffffff;
+      text-shadow:
+        0 0 18px rgba(0, 0, 0, 0.9),
+        0 0 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .welcome-core::before,
+    .welcome-core::after {
       content: attr(data-text);
       position: absolute;
       inset: 0;
       mix-blend-mode: screen;
-      opacity: 0.6;
       pointer-events: none;
+      opacity: 0.75;
     }
 
-    .glitch-title::before {
-      left: 2px;
+    /* 青色偏移层 */
+    .welcome-core::before {
+      left: 3px;
       text-shadow: -2px 0 var(--cp-cyan);
-      animation: glitch 2.4s infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 48%, 0 42%);
+      animation: glitch-top 2.2s infinite;
     }
 
-    .glitch-title::after {
-      left: -2px;
+    /* 粉色偏移层 */
+    .welcome-core::after {
+      left: -3px;
       text-shadow: 2px 0 var(--cp-pink);
-      animation: glitch 3s infinite;
+      clip-path: polygon(0 60%, 100% 56%, 100% 100%, 0 100%);
+      animation: glitch-bottom 2.8s infinite;
     }
 
-    .hero-subline {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.24em;
-      color: var(--cp-muted);
-      margin-bottom: 0.8rem;
-    }
-
-    .hero-description {
-      font-size: 0.86rem;
-      max-width: 31rem;
-      color: #d2d2e0;
-      line-height: 1.5;
-      margin-bottom: 1.1rem;
-    }
-
-    .hero-description span {
-      color: var(--cp-yellow-soft);
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-bottom: 1.3rem;
-    }
-
-    .btn-primary,
-    .btn-ghost {
-      position: relative;
-      font-family: "Orbitron", system-ui;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: 0.7rem;
-      padding: 0.55rem 1.35rem;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      text-decoration: none;
-      transition: 0.18s ease-out;
-      overflow: hidden;
-      background: transparent;
-      color: var(--cp-text);
-    }
-
-    .btn-primary {
-      background: linear-gradient(120deg, #fcee09, #f5e642, #f2cf1c);
-      border-color: rgba(0, 0, 0, 0.9);
-      color: #000;
-      box-shadow:
-        0 0 18px rgba(252, 238, 9, 0.75),
-        0 0 30px rgba(252, 238, 9, 0.45);
-    }
-
-    .btn-primary span.icon {
-      font-size: 0.85rem;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow:
-        0 0 28px rgba(252, 238, 9, 0.85),
-        0 0 45px rgba(252, 238, 9, 0.6);
-    }
-
-    .btn-ghost {
-      border-color: rgba(255, 255, 255, 0.16);
-      color: var(--cp-muted);
-      background: rgba(4, 4, 10, 0.7);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--cp-cyan);
-      color: var(--cp-cyan);
-      box-shadow: 0 0 16px rgba(0, 255, 240, 0.5);
-    }
-
-    .btn-ghost span.icon {
-      font-size: 0.8rem;
-      color: var(--cp-cyan);
-    }
-
-    .hero-meta {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.7rem;
-      font-size: 0.7rem;
-    }
-
-    .meta-item {
-      border-radius: 0.7rem;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+    /* 文字下方的“崩坏裂纹条” */
+    .welcome-bar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.3rem;
+      height: 2px;
       background: linear-gradient(
-        135deg,
-        rgba(252, 238, 9, 0.05),
-        rgba(0, 0, 0, 0.1)
+        90deg,
+        rgba(252, 238, 9, 0.1),
+        rgba(252, 238, 9, 1),
+        rgba(252, 238, 9, 0.3),
+        rgba(0, 255, 240, 0.5),
+        transparent
       );
-      padding: 0.5rem 0.65rem;
-      position: relative;
+      transform: skewX(-18deg);
+      box-shadow: 0 0 16px rgba(252, 238, 9, 0.8);
       overflow: hidden;
     }
 
-    .meta-label {
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--cp-muted);
-      margin-bottom: 0.25rem;
-      font-size: 0.6rem;
-    }
-
-    .meta-value {
-      font-family: "Orbitron", system-ui;
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
-    }
-
-    .meta-pill {
-      font-size: 0.6rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 0.15rem 0.4rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 255, 240, 0.6);
-      color: var(--cp-cyan);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      margin-top: 0.15rem;
-    }
-
-    .meta-pill span.dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 999px;
-      background: var(--cp-cyan);
-      box-shadow: 0 0 8px rgba(0, 255, 240, 0.8);
-    }
-
-    /* Right: portal grid */
-    .portal-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-    }
-
-    .portal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .portal-title {
-      font-family: "Orbitron", system-ui;
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--cp-muted);
-    }
-
-    .portal-title span {
-      color: var(--cp-yellow-soft);
-    }
-
-    .portal-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(3, 5, 8, 0.9);
-      color: var(--cp-muted);
-    }
-
-    .status-led {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: radial-gradient(circle, var(--cp-danger), #2b0210);
-      box-shadow: 0 0 10px rgba(255, 59, 107, 0.9);
-      animation: statusBlink 1.6s infinite;
-    }
-
-    .portal-grid {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.8rem;
-    }
-
-    .portal-card {
-      position: relative;
-      border-radius: 0.9rem;
-      padding: 0.7rem 0.7rem 0.85rem;
-      background: radial-gradient(circle at top left, #1b152f 0, #05030a 60%);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      cursor: pointer;
-      overflow: hidden;
-      transition: 0.18s ease-out;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .portal-card::before {
+    .welcome-bar::before {
       content: "";
       position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at top, rgba(252, 238, 9, 0.18), transparent 60%);
-      opacity: 0;
-      transition: 0.25s ease-out;
+      inset: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.35) 0,
+        rgba(0, 0, 0, 0.35) 4px,
+        transparent 4px,
+        transparent 8px
+      );
+      mix-blend-mode: overlay;
+      animation: bar-glitch 1.2s linear infinite;
     }
 
-    .portal-card:hover {
-      transform: translateY(-2px) translateZ(0);
-      box-shadow:
-        0 0 20px rgba(252, 238, 9, 0.35),
-        0 0 30px rgba(0, 255, 240, 0.25);
-      border-color: rgba(252, 238, 9, 0.6);
+    .subtitle {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 1.35rem;
+      margin-bottom: 0.5rem;
     }
 
-    .portal-card:hover::before {
-      opacity: 1;
+    .hint {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
     }
 
-    .portal-card-row {
+    .hint strong {
+      color: var(--cp-yellow-soft);
+    }
+
+    /* 底部崩坏错误提示条 */
+    .error-strip {
+      position: absolute;
+      left: -6%;
+      right: -6%;
+      bottom: 0.9rem;
+      margin: 0 auto;
+      max-width: 80%;
+      padding: 0.2rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 48, 95, 0.8);
+      background: linear-gradient(
+        90deg,
+        rgba(255, 48, 95, 0.25),
+        rgba(0, 0, 0, 0.9)
+      );
       display: flex;
+      align-items: center;
       justify-content: space-between;
+      gap: 0.75rem;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255, 230, 235, 0.9);
+      box-shadow: 0 0 18px rgba(255, 48, 95, 0.8);
+      transform: skewX(-10deg);
+      overflow: hidden;
+    }
+
+    .error-tag {
+      display: inline-flex;
+      align-items: center;
       gap: 0.4rem;
+      white-space: nowrap;
     }
 
-    .portal-card-label {
-      font-size: 0.6rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--cp-muted);
-      margin-bottom: 0.2rem;
-    }
-
-    .portal-card-title {
-      font-family: "Orbitron", system-ui;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--cp-yellow-soft);
-      margin-bottom: 0.2rem;
-    }
-
-    .portal-card-desc {
-      font-size: 0.72rem;
-      color: #d0d0de;
-      line-height: 1.35;
-      max-width: 15rem;
-    }
-
-    .portal-card-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      font-size: 0.65rem;
-      margin-top: 0.6rem;
-      color: var(--cp-muted);
-    }
-
-    .portal-chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.25rem;
-    }
-
-    .portal-chip {
+    .error-dot {
+      width: 9px;
+      height: 9px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      padding: 0.15rem 0.35rem 0.18rem;
-      font-size: 0.58rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
+      background: radial-gradient(circle, var(--cp-danger), #4d0015);
+      box-shadow: 0 0 12px rgba(255, 48, 95, 1);
+      animation: error-blink 1.6s infinite;
     }
 
-    .portal-chip.alert {
-      border-color: rgba(255, 0, 168, 0.8);
-      color: var(--cp-pink);
+    .error-text {
+      white-space: nowrap;
     }
 
-    .portal-chip.neon {
-      border-color: rgba(0, 255, 240, 0.8);
-      color: var(--cp-cyan);
+    .error-marquee {
+      flex: 1;
+      overflow: hidden;
     }
 
-    .portal-card-index {
-      font-family: "Orbitron", system-ui;
-      letter-spacing: 0.16em;
-      color: rgba(255, 255, 255, 0.5);
+    .error-marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 11s linear infinite;
+      opacity: 0.8;
     }
 
-    .portal-card-index span {
-      color: var(--cp-yellow-soft);
+    /* 动画 */
+    @keyframes halo-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
-    .portal-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      font-size: 0.65rem;
-      color: var(--cp-muted);
-      padding-top: 0.7rem;
-      border-top: 1px solid var(--cp-border);
+    @keyframes shard-flicker {
+      0%, 100% { opacity: 0.4; }
+      10% { opacity: 0.9; }
+      30% { opacity: 0.1; }
+      55% { opacity: 0.8; }
+      75% { opacity: 0.3; }
     }
 
-    .sys-line {
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      align-items: center;
+    @keyframes shard-glide {
+      0% { transform: translateY(0) skewX(-18deg) rotate(-4deg); }
+      50% { transform: translateY(-18px) skewX(-18deg) rotate(-4deg); }
+      100% { transform: translateY(0) skewX(-18deg) rotate(-4deg); }
     }
 
-    .sys-tag {
-      padding: 0.15rem 0.4rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
+    @keyframes glitch-top {
+      0% { transform: translate(0, 0); }
+      10% { transform: translate(-2px, -1px); }
+      20% { transform: translate(2px, 1px); }
+      30% { transform: translate(-1px, 0); }
+      40% { transform: translate(1px, -1px); }
+      50% { transform: translate(0, 0); }
+      100% { transform: translate(0, 0); }
     }
 
-    .sys-tag.yellow {
-      border-color: rgba(252, 238, 9, 0.85);
-      color: var(--cp-yellow-soft);
+    @keyframes glitch-bottom {
+      0% { transform: translate(0, 0); }
+      15% { transform: translate(2px, 1px); }
+      25% { transform: translate(-2px, -1px); }
+      35% { transform: translate(1px, 0); }
+      45% { transform: translate(-1px, 1px); }
+      100% { transform: translate(0, 0); }
     }
 
-    .sys-tag.cyan {
-      border-color: rgba(0, 255, 240, 0.7);
-      color: var(--cp-cyan);
+    @keyframes bar-glitch {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-16px); }
     }
 
-    .clock {
-      font-family: "Orbitron", system-ui;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+    @keyframes error-blink {
+      0%, 70%, 100% { opacity: 0.22; }
+      25%, 45% { opacity: 1; }
     }
 
-    .clock span {
-      color: var(--cp-yellow-soft);
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
     }
 
-    /* Animations */
-    @keyframes shine {
-      0% {
-        transform: translateX(-120%) rotate(12deg);
-      }
-      100% {
-        transform: translateX(120%) rotate(12deg);
-      }
-    }
-
-    @keyframes glitch {
-      0% {
-        clip-path: inset(0 0 0 0);
-        transform: translate(0, 0);
-      }
-      12% {
-        clip-path: inset(0 0 65% 0);
-        transform: translate(-1px, -1px);
-      }
-      22% {
-        clip-path: inset(35% 0 0 0);
-        transform: translate(1px, 0);
-      }
-      34% {
-        clip-path: inset(0 0 30% 0);
-        transform: translate(-1px, 1px);
-      }
-      50% {
-        clip-path: inset(40% 0 40% 0);
-        transform: translate(0, -1px);
-      }
-      70% {
-        clip-path: inset(0 0 90% 0);
-        transform: translate(1px, 0);
-      }
-      100% {
-        clip-path: inset(0 0 0 0);
-        transform: translate(0, 0);
-      }
-    }
-
-    @keyframes statusBlink {
-      0%,
-      80%,
-      100% {
-        opacity: 0.25;
-      }
-      35%,
-      55% {
-        opacity: 1;
-      }
-    }
-
-    /* Responsive */
-    @media (max-width: 960px) {
+    /* 自适应 */
+    @media (max-width: 768px) {
       .frame {
-        padding: 1.5rem 1.25rem 1.4rem;
+        aspect-ratio: 9 / 16;
+        max-width: 420px;
+        padding: 1.1rem;
       }
 
-      .main-layout {
-        grid-template-columns: minmax(0, 1fr);
+      .frame-inner {
+        padding: 0.4rem;
       }
 
-      .portal-panel {
-        order: -1;
-      }
-    }
-
-    @media (max-width: 720px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.7rem;
+      .subtitle {
+        margin-top: 1rem;
       }
 
-      .user-indicator {
-        border-left: none;
-        padding-left: 0;
+      .error-strip {
+        bottom: 0.6rem;
+        max-width: 92%;
       }
 
-      nav {
-        width: 100%;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-      }
-
-      .hero-panel {
-        padding: 1.1rem 0.9rem;
-      }
-
-      .portal-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .hero-meta {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .portal-footer {
-        flex-direction: column;
-        align-items: flex-start;
+      .welcome-core {
+        letter-spacing: 0.22em;
       }
     }
 
     @media (max-width: 480px) {
-      .hero-meta {
-        grid-template-columns: minmax(0, 1fr);
+      .top-label {
+        letter-spacing: 0.16em;
       }
 
-      .hero-actions {
-        flex-direction: column;
-        align-items: stretch;
+      .subtitle {
+        font-size: 0.78rem;
+        letter-spacing: 0.2em;
       }
 
-      .btn-primary,
-      .btn-ghost {
-        justify-content: center;
-        width: 100%;
+      .hint {
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
       }
     }
   </style>
 </head>
 <body>
   <div class="frame">
-    <div class="frame-grid">
-      <header>
-        <div class="brand">
-          <div class="brand-mark">CP</div>
-          <div>
-            <div class="brand-title">
-              <span>Cyber</span> Nexus
-            </div>
-            <div class="brand-subtitle">
-              universal access gateway
-            </div>
-          </div>
+    <div class="frame-inner">
+      <div class="shard s1"></div>
+      <div class="shard s2"></div>
+      <div class="shard s3"></div>
+      <div class="shard s4"></div>
+
+      <div class="content">
+        <div class="top-label">
+          <span class="top-label-dot"></span>
+          <span>SYSTEM ENTRY NODE // CP-2077</span>
         </div>
 
-        <nav>
-          <a href="#systems" class="nav-link active">Systems</a>
-          <a href="#social" class="nav-link">Social</a>
-          <a href="#archives" class="nav-link">Archives</a>
-          <a href="#admin" class="nav-link">Admin</a>
-          <div class="user-indicator">
-            <div class="user-dot"></div>
-            <div>
-              <div class="user-label">logged in</div>
-              <div class="user-name">Runner: GUEST-2077</div>
-            </div>
+        <div class="welcome-wrap">
+          <div class="welcome-core" data-text="WELCOME">
+            WELCOME
           </div>
-        </nav>
-      </header>
-
-      <main class="main-layout">
-        <!-- Left: hero -->
-        <section class="hero-panel" aria-label="Cyberpunk portal description">
-          <div class="hero-header-row">
-            <div class="hero-tag">
-              <span class="hero-tag-dot"></span>
-              ACCESS CHANNEL / INDEX
-            </div>
-            <div class="hero-id">
-              NODE-ID::<span>CP-2077-INDEX</span>
-            </div>
-          </div>
-
-          <h1 class="glitch-title" data-text="NEURAL PORTAL">
-            NEURAL PORTAL
-          </h1>
-
-          <p class="hero-subline">
-            PRIMARY GATEWAY TO YOUR CYBERPUNK GRID
-          </p>
-
-          <p class="hero-description">
-            Welcome, netrunner. This is your <span>central entry node</span> for
-            every system you own: projects, profiles, archives, and control
-            panels. Route your attention, jack into modules, and let the grid
-            reconfigure around you.
-          </p>
-
-          <div class="hero-actions">
-            <button class="btn-primary" type="button">
-              <span class="icon">▶</span>
-              <span>Launch main hub</span>
-            </button>
-            <button class="btn-ghost" type="button">
-              <span class="icon">⌘</span>
-              <span>Quick commands</span>
-            </button>
-          </div>
-
-          <div class="hero-meta">
-            <div class="meta-item">
-              <div class="meta-label">connection</div>
-              <div class="meta-value">ENCRYPTED / STABLE</div>
-              <div class="meta-pill">
-                <span class="dot"></span>
-                <span>sync online</span>
-              </div>
-            </div>
-            <div class="meta-item">
-              <div class="meta-label">active nodes</div>
-              <div class="meta-value">04 PORTALS</div>
-              <div class="meta-pill">
-                <span class="dot"></span>
-                <span>auto-reroute</span>
-              </div>
-            </div>
-            <div class="meta-item">
-              <div class="meta-label">security tier</div>
-              <div class="meta-value">YELLOW / CLASS-2077</div>
-              <div class="meta-pill">
-                <span class="dot"></span>
-                <span>firewall locked</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Right: portal cards -->
-        <aside class="portal-panel" aria-label="Available portals">
-          <div class="portal-header">
-            <div class="portal-title">
-              ACTIVE <span>PORTALS</span>
-            </div>
-            <div class="portal-status">
-              <span class="status-led"></span>
-              <span>Alert: 1 module unstable</span>
-            </div>
-          </div>
-
-          <div class="portal-grid">
-            <!-- Card 01 -->
-            <article class="portal-card" id="systems">
-              <div class="portal-card-row">
-                <div>
-                  <div class="portal-card-label">primary</div>
-                  <div class="portal-card-title">System Hub</div>
-                  <p class="portal-card-desc">
-                    Core dashboard for your projects, analytics, and monitoring
-                    panels. Designed for fast switching and high-contrast
-                    cyberpunk visibility.
-                  </p>
-                </div>
-              </div>
-              <div class="portal-card-meta">
-                <div class="portal-chip-row">
-                  <div class="portal-chip neon">real-time</div>
-                  <div class="portal-chip">project grid</div>
-                </div>
-                <div class="portal-card-index">
-                  #<span>01</span>
-                </div>
-              </div>
-            </article>
-
-            <!-- Card 02 -->
-            <article class="portal-card" id="social">
-              <div class="portal-card-row">
-                <div>
-                  <div class="portal-card-label">network</div>
-                  <div class="portal-card-title">Social Link</div>
-                  <p class="portal-card-desc">
-                    Central route to all your public identities: photography
-                    feeds, streaming nodes, and encrypted contact channels.
-                  </p>
-                </div>
-              </div>
-              <div class="portal-card-meta">
-                <div class="portal-chip-row">
-                  <div class="portal-chip">profiles</div>
-                  <div class="portal-chip neon">broadcast</div>
-                </div>
-                <div class="portal-card-index">
-                  #<span>02</span>
-                </div>
-              </div>
-            </article>
-
-            <!-- Card 03 -->
-            <article class="portal-card" id="archives">
-              <div class="portal-card-row">
-                <div>
-                  <div class="portal-card-label">storage</div>
-                  <div class="portal-card-title">Deep Archives</div>
-                  <p class="portal-card-desc">
-                    Long-term storage for your files, images, and experiment
-                    logs. Chronological, tagged, and ready for retrieval on
-                    demand.
-                  </p>
-                </div>
-              </div>
-              <div class="portal-card-meta">
-                <div class="portal-chip-row">
-                  <div class="portal-chip">offline mirror</div>
-                  <div class="portal-chip neon">vault</div>
-                </div>
-                <div class="portal-card-index">
-                  #<span>03</span>
-                </div>
-              </div>
-            </article>
-
-            <!-- Card 04 -->
-            <article class="portal-card" id="admin">
-              <div class="portal-card-row">
-                <div>
-                  <div class="portal-card-label">control</div>
-                  <div class="portal-card-title">Admin Console</div>
-                  <p class="portal-card-desc">
-                    Access keys, theme overrides, and experimental modules.
-                    Marked unstable: changes here will rewrite your entire grid.
-                  </p>
-                </div>
-              </div>
-              <div class="portal-card-meta">
-                <div class="portal-chip-row">
-                  <div class="portal-chip alert">unstable</div>
-                  <div class="portal-chip">root access</div>
-                </div>
-                <div class="portal-card-index">
-                  #<span>04</span>
-                </div>
-              </div>
-            </article>
-          </div>
-        </aside>
-      </main>
-
-      <footer class="portal-footer">
-        <div class="sys-line">
-          <span>system log:</span>
-          <span>boot sequence complete</span>
-          <span class="sys-tag yellow">mode: cyberpunk 2077</span>
-          <span class="sys-tag cyan">theme: neon yellow</span>
+          <div class="welcome-bar"></div>
         </div>
-        <div class="clock" aria-label="System time">
-          TIME::<span id="clock-display">--:--:--</span>
+
+        <p class="subtitle">
+          PRIMARY ACCESS GATEWAY INITIALIZED
+        </p>
+        <p class="hint">
+          <strong>Press any key</strong> or <strong>click</strong> to continue the simulation
+        </p>
+
+        <div class="error-strip">
+          <div class="error-tag">
+            <span class="error-dot"></span>
+            <span class="error-text">WARNING // PARTIAL REALITY COLLAPSE DETECTED</span>
+          </div>
+          <div class="error-marquee">
+            <span>LOG: WORLD FRAGMENTS LOADED &mdash; VISUAL PROFILE: NEON YELLOW / GLITCHED / BROKEN TIMELINE &mdash; STANDBY...</span>
+          </div>
         </div>
-      </footer>
+      </div>
     </div>
   </div>
 
   <script>
-    // Simple neon clock
-    function updateClock() {
-      const el = document.getElementById("clock-display");
+    // Optional: simple "press any key or click" effect (visual only)
+    function flashWelcome() {
+      const el = document.querySelector(".welcome-core");
       if (!el) return;
-      const now = new Date();
-      const h = String(now.getHours()).padStart(2, "0");
-      const m = String(now.getMinutes()).padStart(2, "0");
-      const s = String(now.getSeconds()).padStart(2, "0");
-      el.textContent = h + ":" + m + ":" + s;
+      el.style.filter = "brightness(1.5)";
+      el.style.transition = "filter 0.2s ease-out";
+      setTimeout(() => {
+        el.style.filter = "brightness(1)";
+      }, 180);
     }
-    updateClock();
-    setInterval(updateClock, 1000);
 
-    // Fake "nav" active state (no routing, just visual)
-    const navLinks = document.querySelectorAll(".nav-link");
-    navLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        navLinks.forEach((l) => l.classList.remove("active"));
-        link.classList.add("active");
-      });
-    });
-
-    // Simple hover "focus" effect on cards via keyboard
-    const cards = document.querySelectorAll(".portal-card");
-    cards.forEach((card) => {
-      card.tabIndex = 0;
-      card.addEventListener("keyup", (ev) => {
-        if (ev.key === "Enter" || ev.key === " ") {
-          card.classList.add("active");
-          setTimeout(() => card.classList.remove("active"), 150);
-        }
-      });
-    });
+    window.addEventListener("keydown", flashWelcome);
+    window.addEventListener("click", flashWelcome);
   </script>
 </body>
 </html>
